@@ -1,6 +1,5 @@
 package com.casa.samala.controller;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.casa.samala.controller.request.BillTypeInsertOrUpdateRequest;
 import com.casa.samala.entity.BillType;
 import com.casa.samala.repository.BillTypeRepository;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
