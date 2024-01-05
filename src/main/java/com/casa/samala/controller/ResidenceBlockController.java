@@ -1,8 +1,6 @@
 package com.casa.samala.controller;
 
-import com.casa.samala.entity.PaymentMethod;
 import com.casa.samala.entity.ResidenceBlock;
-import com.casa.samala.repository.PaymentMethodRepository;
 import com.casa.samala.repository.ResidenceBlockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

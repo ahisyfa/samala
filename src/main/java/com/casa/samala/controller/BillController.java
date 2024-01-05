@@ -1,9 +1,7 @@
 package com.casa.samala.controller;
 
 import com.casa.samala.entity.Bill;
-import com.casa.samala.entity.BillType;
 import com.casa.samala.repository.BillRepository;
-import com.casa.samala.repository.BillTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

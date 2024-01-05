@@ -1,8 +1,6 @@
 package com.casa.samala.controller;
 
-import com.casa.samala.entity.FamilyRole;
 import com.casa.samala.entity.NotificationType;
-import com.casa.samala.repository.FamilyRoleRepository;
 import com.casa.samala.repository.NotificationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
