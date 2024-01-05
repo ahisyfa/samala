@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version $Id: PingController.java, v 0.1 2023-12-29  19.41 Ahmad Isyfalana Amin Exp $
  */
 @RestController
-public class PingController {
+public class LoginController {
 
     @GetMapping("/ping")
     public String ping() {
