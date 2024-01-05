@@ -16,7 +16,7 @@ import java.util.List;
  * @version $Id: ResidenceBlockOwnerController.java, v 0.1 2024-01-05  23.01 Ahmad Isyfalana Amin Exp $
  */
 @RestController
-@RequestMapping("/residence_block")
+@RequestMapping("/residence_block_owner")
 public class ResidenceBlockOwnerController {
 
     @Autowired
