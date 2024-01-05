@@ -35,26 +35,24 @@ public class SamalaAuthenticationProvider implements AuthenticationProvider {
         String pwd = authentication.getCredentials().toString();
         Optional<User> userByUsername = userService.findUserByUsername(username);
 
-        if (userByUsername.isPresent()) {
-            User presentedUser = userByUsername.get();
-            if (passwordEncoder.matches(pwd, presentedUser.getPassword())) {
-                List<GrantedAuthority> authorities = new ArrayList<>();
-                String commaSeparatedRoles = presentedUser.getRoles();
-                String[] roles = commaSeparatedRoles.split(",");
-
-                for (String role : roles) {
-                    authorities.add(new SimpleGrantedAuthority(role));
-                }
-
-                return new UsernamePasswordAuthenticationToken(username, pwd, authorities);
-            } else {
-                throw new BadCredentialsException("Invalid password!");
-            }
-
-        } else {
+        if (userByUsername.isEmpty()) {
             throw new BadCredentialsException("No user registered with this details!");
         }
 
+        User presentedUser = userByUsername.get();
+        if (!passwordEncoder.matches(pwd, presentedUser.getPassword())) {
+            throw new BadCredentialsException("Invalid password!");
+        }
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        String commaSeparatedRoles = presentedUser.getRoles();
+        String[] roles = commaSeparatedRoles.split(",");
+
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+
+        return new UsernamePasswordAuthenticationToken(username, pwd, authorities);
     }
 
     @Override
