@@ -66,10 +66,10 @@ public class PersonController {
         Person person = new Person();
         BeanUtils.copyProperties(request, person);
         person.setId(null);
-        person.setReligion(optionalReligion.get());
-        person.setEducation(optionalEducation.get());
-        person.setFamilyRole(familyRoleOptional.get());
-        person.setResidenceBlock(optionalResidenceBlock.get());
+        person.setReligion(optionalReligion.orElse(null));
+        person.setEducation(optionalEducation.orElse(null));
+        person.setFamilyRole(familyRoleOptional.orElse(null));
+        person.setResidenceBlock(optionalResidenceBlock.orElse(null));
 
         Person savedPerson = personRepository.save(person);
 
@@ -85,10 +85,10 @@ public class PersonController {
 
         Person person = new Person();
         BeanUtils.copyProperties(request, person);
-        person.setReligion(optionalReligion.get());
-        person.setEducation(optionalEducation.get());
-        person.setFamilyRole(familyRoleOptional.get());
-        person.setResidenceBlock(optionalResidenceBlock.get());
+        person.setReligion(optionalReligion.orElse(null));
+        person.setEducation(optionalEducation.orElse(null));
+        person.setFamilyRole(familyRoleOptional.orElse(null));
+        person.setResidenceBlock(optionalResidenceBlock.orElse(null));
 
         Person savedPerson = personRepository.save(person);
 
