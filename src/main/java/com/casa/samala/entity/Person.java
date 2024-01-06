@@ -1,7 +1,3 @@
-/**
- * Dana.id
- * Copyright (c) 2017-2024 All Rights Reserved.
- */
 package com.casa.samala.entity;
 
 import jakarta.persistence.Column;
