@@ -28,6 +28,12 @@ import static org.springframework.util.StringUtils.isEmpty;
  */
 public class JWTTokenValidatorFilter  extends OncePerRequestFilter {
 
+    private String jwtSecretKey;
+
+    public JWTTokenValidatorFilter(String jwtSecretKey) {
+        this.jwtSecretKey = jwtSecretKey;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -35,17 +41,19 @@ public class JWTTokenValidatorFilter  extends OncePerRequestFilter {
         // Get authorization header and validate
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (isEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) {
-            throw new BadCredentialsException("No Authorization header received!");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         // Get jwt token and validate
         final String token = authorizationHeader.split(" ")[1].trim();
         if (isEmpty(token)) {
-            throw new BadCredentialsException("No Token received!");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         try {
-            SecretKey key = Keys.hmacShaKeyFor(JWTTokenGeneratorFilter.JWT_KEY.getBytes(StandardCharsets.UTF_8));
+            SecretKey key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
 
             Claims claims = Jwts.parser()
                     .setSigningKey(key)
