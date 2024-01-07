@@ -11,6 +11,7 @@ import com.casa.samala.repository.FamilyRoleRepository;
 import com.casa.samala.repository.PersonRepository;
 import com.casa.samala.repository.ReligionRepository;
 import com.casa.samala.repository.ResidenceBlockRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/person")
+@Tag(name = "Person")
 public class PersonController {
 
     @Autowired

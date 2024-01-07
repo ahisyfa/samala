@@ -3,6 +3,7 @@ package com.casa.samala.controller;
 import com.casa.samala.controller.request.BillTypeInsertOrUpdateRequest;
 import com.casa.samala.entity.BillType;
 import com.casa.samala.repository.BillTypeRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/bill_type")
+@Tag(name = "Bill Type")
 public class BillTypeController {
 
     @Autowired

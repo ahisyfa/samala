@@ -1,5 +1,6 @@
 package com.casa.samala.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version $Id: PingController.java, v 0.1 2023-12-29  19.41 Ahmad Isyfalana Amin Exp $
  */
 @RestController
+@Tag(name = "Login")
 public class LoginController {
 
     @GetMapping("/ping")

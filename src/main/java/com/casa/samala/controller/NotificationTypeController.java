@@ -2,6 +2,7 @@ package com.casa.samala.controller;
 
 import com.casa.samala.entity.NotificationType;
 import com.casa.samala.repository.NotificationTypeRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/notification_type")
+@Tag(name = "Notification Type")
 public class NotificationTypeController {
 
     @Autowired

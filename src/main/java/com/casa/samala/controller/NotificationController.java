@@ -4,6 +4,8 @@ import com.casa.samala.entity.Notification;
 import com.casa.samala.entity.Person;
 import com.casa.samala.repository.NotificationRepository;
 import com.casa.samala.repository.PersonRepository;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/notification")
+@Tag(name = "Notification")
 public class NotificationController {
 
     @Autowired
@@ -37,7 +40,7 @@ public class NotificationController {
     }
 
     @GetMapping("/get_by_person_id/{personId}")
-    public ResponseEntity<List<Notification>> getByPersonId(@PathVariable("personId") Long personId) {
+    public ResponseEntity<List<Notification>> getByPersonId(@Parameter(name = "personId") @PathVariable("personId") Long personId) {
 
         Optional<Person> presentedPerson = personRepository.findById(personId);
 
