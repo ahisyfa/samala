@@ -2,6 +2,7 @@ package com.casa.samala.config;
 
 import com.casa.samala.filter.JWTTokenGeneratorFilter;
 import com.casa.samala.filter.JWTTokenValidatorFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author Ahmad Isyfalana Amin
@@ -20,6 +24,22 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
  */
 @Configuration
 public class SecurityConfiguration {
+
+    @Autowired
+    private SamalaConfigProperties samalaConfigProperties;
+
+    private static final String[] AUTH_WHITE_LIST = {
+            "/",
+            "/index.html",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/swagger-ui/index.html",
+            "/v2/api-docs/**",
+            "/v3/api-docs/**",
+            "/csrf",
+            "/webjars/springfox-swagger-ui/**",
+            "/swagger-resources/**"
+    };
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,11 +56,14 @@ public class SecurityConfiguration {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             })
 
-            .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
-            .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+            .addFilterBefore(new JWTTokenValidatorFilter(samalaConfigProperties.getJwtSecretKey()), BasicAuthenticationFilter.class)
+            .addFilterAfter(new JWTTokenGeneratorFilter(samalaConfigProperties.getJwtSecretKey()), BasicAuthenticationFilter.class)
 
             // Authentication Config
             .authorizeHttpRequests(request -> {
+                request.requestMatchers(AUTH_WHITE_LIST).permitAll();
+
+                request.requestMatchers("/error").permitAll();
                 request.anyRequest().authenticated();
             })
             .httpBasic(Customizer.withDefaults())
@@ -54,7 +77,18 @@ public class SecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
+        return (web) -> web.ignoring().requestMatchers(AUTH_WHITE_LIST);
+    }
+
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
     @Bean
