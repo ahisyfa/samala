@@ -2,6 +2,7 @@ package com.casa.samala.mapper;
 
 import com.casa.samala.controller.request.PersonInsertOrUpdateRequest;
 import com.casa.samala.controller.response.PersonResponse;
+import com.casa.samala.controller.response.PersonSimpleResponse;
 import com.casa.samala.entity.Person;
 import org.mapstruct.Mapper;
 
@@ -20,5 +21,7 @@ public interface PersonMapper {
     PersonResponse toPersonResponse(Person person);
 
     List<PersonResponse> toPersonResponse(Collection<Person> personCollection);
+
+    PersonSimpleResponse toPersonSimpleResponse(Person person);
 
 }

@@ -2,6 +2,8 @@ package com.casa.samala.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +33,8 @@ public class BillType extends DateAudit {
     private String name;
 
     @Column(name = "period_type")
-    private String periodType;
+    @Enumerated(EnumType.STRING)
+    private BillPeriodTypeEnum periodType;
 
     @Column(name = "nominal")
     private Long nominal;

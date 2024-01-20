@@ -28,7 +28,7 @@ public class BillInsertOrUpdateRequest {
     @NotNull
     private Long personId;
 
-    @NotNull
+
     private Long secretaryId;
 
     @NotNull

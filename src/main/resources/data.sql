@@ -1,9 +1,3 @@
--- USER
-INSERT INTO SAMALA_USERS(USERNAME,PASSWORD,ROLES,CREATED_TIME,UPDATED_TIME) VALUES
-('admin','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','ROLE_ADMIN',NOW(),NOW()),
-('user','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','user',NOW(),NOW());
-
-
 -- BillType
 INSERT INTO BILL_TYPE(name,period_type,nominal,active,created_time,updated_time) VALUES
 ('IPL','MONTHLY',20000,1,NOW(),NOW()),
@@ -162,11 +156,17 @@ INSERT INTO residence_block(name, occupied_status) VALUES
 
 -- Person
 INSERT INTO person(full_name, id_ktp, family_card_id, date_of_birth, place_of_birth, gender, marriage_status, nationality, family_role_id, last_education_id, religion_id, address, residence_block_id, phone_number, updated_time, created_time) VALUES
-('SISI', '-', '-', '1993-06-01', 'Bogor', 'F', 1, 'WNI', 1, 7, 1, 'Casa Samala Blok A-5', 1, '089797916291', NOW(), NOW());
+('SISI', '-', '-', '1993-06-01', 'Bogor', 'F', 1, 'WNI', 1, 7, 1, 'Casa Samala Blok A-5', 1, '089797916291', NOW(), NOW()),
+('SAMPLE PERSON C-1', '-', '-', '1993-06-01', 'Bogor', 'F', 1, 'WNI', 1, 7, 1, 'Casa Samala Blok C-1', 11, '089797916291', NOW(), NOW());
 
 
 -- ResidenceBlockOwner
 INSERT INTO residence_block_owner(person_id, residence_block_id) VALUES
 (1,1);
+
+-- USER
+INSERT INTO SAMALA_USERS(USERNAME,PASSWORD,ROLES,CREATED_TIME,UPDATED_TIME, PERSON_ID) VALUES
+('admin','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','ROLE_ADMIN',NOW(),NOW(),1),
+('user','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','user',NOW(),NOW(),2);
 
 
