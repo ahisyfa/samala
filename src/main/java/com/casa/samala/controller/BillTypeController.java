@@ -1,13 +1,15 @@
 package com.casa.samala.controller;
 
 import com.casa.samala.controller.request.BillTypeInsertOrUpdateRequest;
-import com.casa.samala.entity.BillType;
+import com.casa.samala.controller.response.ApiResponse;
+import com.casa.samala.controller.response.ApiResponseStatusEnum;
+import com.casa.samala.controller.response.BillTypeResponse;
 import com.casa.samala.repository.BillTypeRepository;
+import com.casa.samala.service.BillTypeService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * BillTypeController
@@ -33,39 +34,46 @@ public class BillTypeController {
     @Autowired
     private BillTypeRepository billTypeRepository;
 
-    @GetMapping("/get_all")
-    public List<BillType> getAll() {
-        return billTypeRepository.findAll();
+    @Autowired
+    private BillTypeService billTypeService;
+
+    @GetMapping(value = "/get_all",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Gets All Bill Type")
+    public ResponseEntity<ApiResponse<List<BillTypeResponse>>>getAll() {
+        List<BillTypeResponse> billTypeResponses = billTypeService.getAll();
+
+        ApiResponse<List<BillTypeResponse>> apiResponse = new ApiResponse<>();
+        apiResponse.setResponseStatusInfo(ApiResponseStatusEnum.SUCCESS);
+        apiResponse.setData(billTypeResponses);
+
+        return ResponseEntity.ok(apiResponse);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<BillType> addBillType(@Valid @RequestBody BillTypeInsertOrUpdateRequest request) {
-        BillType billType = new BillType();
+    @PostMapping(value = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Add Bill Type")
+    public ResponseEntity<ApiResponse<BillTypeResponse>> add(@RequestBody BillTypeInsertOrUpdateRequest request) {
+        BillTypeResponse savedBillTypeResponse = billTypeService.add(request);
 
-        BeanUtils.copyProperties(request, billType);
+        ApiResponse<BillTypeResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResponseStatusInfo(ApiResponseStatusEnum.SUCCESS);
+        apiResponse.setData(savedBillTypeResponse);
 
-        BillType savedBillType = billTypeRepository.save(billType);
-
-        return new ResponseEntity<>(savedBillType, HttpStatus.OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<BillType> editBillType(@Valid @RequestBody BillTypeInsertOrUpdateRequest request) {
-        Optional<BillType> byId = billTypeRepository.findById(request.getId());
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Update Bill Type")
+    public ResponseEntity<ApiResponse<BillTypeResponse>> update(@RequestBody BillTypeInsertOrUpdateRequest request) {
+        BillTypeResponse savedBillTypeResponse = billTypeService.update(request);
 
-        if (!byId.isPresent()) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+        ApiResponse<BillTypeResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResponseStatusInfo(ApiResponseStatusEnum.SUCCESS);
+        apiResponse.setData(savedBillTypeResponse);
 
-        BillType oldBillType = byId.get();
-
-        oldBillType.setName(request.getName());
-        oldBillType.setNominal(request.getNominal());
-        oldBillType.setActive(request.isActive());
-
-        BillType savedBillType = billTypeRepository.save(oldBillType);
-
-        return new ResponseEntity<>(savedBillType, HttpStatus.OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
 }
