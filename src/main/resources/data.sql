@@ -1,12 +1,13 @@
 -- USER
 INSERT INTO SAMALA_USERS(USERNAME,PASSWORD,ROLES,CREATED_TIME,UPDATED_TIME) VALUES
-('admin','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','ROLE_ADMIN',NOW(),NOW());
+('admin','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','ROLE_ADMIN',NOW(),NOW()),
+('user','$2a$10$W1gMnvc9mdzWrPlvt7b70.YRjC0AAne22kQGvtjbr/IkFnVttvJve','user',NOW(),NOW());
 
 
 -- BillType
-INSERT INTO BILL_TYPE(name,nominal,active,created_time,updated_time) VALUES
-('IPL',20000,1,NOW(),NOW()),
-('Infaq',20000,1,NOW(),NOW());
+INSERT INTO BILL_TYPE(name,period_type,nominal,active,created_time,updated_time) VALUES
+('IPL','MONTHLY',20000,1,NOW(),NOW()),
+('Infaq','FREE',20000,1,NOW(),NOW());
 
 
 -- Education

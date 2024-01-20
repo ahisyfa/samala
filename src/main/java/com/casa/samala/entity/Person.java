@@ -82,4 +82,7 @@ public class Person extends DateAudit {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
 }
