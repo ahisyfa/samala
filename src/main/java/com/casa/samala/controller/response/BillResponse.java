@@ -1,9 +1,6 @@
 package com.casa.samala.controller.response;
 
 import com.casa.samala.entity.BillStatusEnum;
-import com.casa.samala.entity.BillType;
-import com.casa.samala.entity.PaymentMethod;
-import com.casa.samala.entity.Person;
 import com.casa.samala.entity.ResidenceBlock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * BillResponse
@@ -26,11 +24,11 @@ public class BillResponse {
 
     private Long id;
 
-    private BillType billType;
+    private BillTypeSimpleResponse billType;
 
-    private Person person;
+    private PersonSimpleResponse person;
 
-    private Person secretary;
+    private PersonSimpleResponse secretary;
 
     private ResidenceBlock residenceBlock;
 
@@ -38,9 +36,11 @@ public class BillResponse {
 
     private Long nominal;
 
-    private PaymentMethod paymentMethod;
+    private PaymentMethodSimpleResponse paymentMethod;
 
     private LocalDate period;
 
     private BillStatusEnum status;
+
+    private LocalDateTime createdTime;
 }

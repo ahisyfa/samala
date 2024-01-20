@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -65,6 +67,7 @@ public class Bill extends DateAudit {
     private PaymentMethod paymentMethod;
 
     @Column(name = "period")
+    @Temporal(TemporalType.DATE)
     private LocalDate period;
 
     @Column(name = "status")
