@@ -1,7 +1,3 @@
-/**
- * Dana.id
- * Copyright (c) 2017-2024 All Rights Reserved.
- */
 package com.casa.samala.controller.request;
 
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +14,9 @@ public class BillTypeInsertOrUpdateRequest {
 
     @NotNull
     private String name;
+
+    @NotNull
+    private String periodType;
 
     @NotNull
     private Long nominal;
