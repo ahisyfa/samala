@@ -2,16 +2,22 @@ package com.casa.samala.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 /**
  * NotificationType
@@ -24,6 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class Bill extends DateAudit {
 
     @Id
@@ -56,5 +63,12 @@ public class Bill extends DateAudit {
     @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
+
+    @Column(name = "period")
+    private LocalDate period;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private BillStatusEnum status;
 
 }

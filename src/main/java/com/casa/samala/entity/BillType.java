@@ -30,6 +30,9 @@ public class BillType extends DateAudit {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "period_type")
+    private String periodType;
+
     @Column(name = "nominal")
     private Long nominal;
 
