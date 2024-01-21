@@ -1,6 +1,6 @@
 package com.casa.samala.controller.response;
 
-import com.casa.samala.entity.BillStatusEnum;
+import com.casa.samala.enums.BillStatusEnum;
 import com.casa.samala.entity.ResidenceBlock;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -6,12 +6,13 @@ import com.casa.samala.controller.request.BillGetLastTransactionRequest;
 import com.casa.samala.controller.request.BillInsertOrUpdateRequest;
 import com.casa.samala.controller.response.BillResponse;
 import com.casa.samala.entity.Bill;
-import com.casa.samala.entity.BillPeriodTypeEnum;
-import com.casa.samala.entity.BillStatusEnum;
+import com.casa.samala.enums.BillPeriodTypeEnum;
+import com.casa.samala.enums.BillStatusEnum;
 import com.casa.samala.entity.BillType;
 import com.casa.samala.entity.PaymentMethod;
 import com.casa.samala.entity.Person;
 import com.casa.samala.entity.ResidenceBlock;
+import com.casa.samala.enums.NotificationTypeEnum;
 import com.casa.samala.mapper.BillMapper;
 import com.casa.samala.repository.BillRepository;
 import com.casa.samala.repository.BillTypeRepository;
@@ -76,6 +77,9 @@ public class BillService {
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
 
     @Transactional
@@ -154,6 +158,9 @@ public class BillService {
         bill.setStatus(statusEnum == null ? BillStatusEnum.INIT : statusEnum);
 
         Bill saved = billRepository.save(bill);
+
+        // Send notification
+        notificationService.addNotification(optionalPerson.get(), NotificationTypeEnum.BILL, saved);
 
         return billMapper.toBillResponse(saved);
     }
@@ -331,6 +338,10 @@ public class BillService {
         existingBill.setSecretary(optionalSecretary.get());
 
         Bill saved = billRepository.save(existingBill);
+
+        // Send notification
+        Person person = saved.getPerson();
+        notificationService.addNotification(person, NotificationTypeEnum.BILL, saved);
 
         return billMapper.toBillResponse(saved);
     }

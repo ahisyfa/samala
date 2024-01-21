@@ -8,7 +8,7 @@ import com.casa.samala.controller.response.ApiResponse;
 import com.casa.samala.controller.response.ApiResponseStatusEnum;
 import com.casa.samala.controller.response.BillResponse;
 import com.casa.samala.controller.response.PagingResponse;
-import com.casa.samala.entity.BillStatusEnum;
+import com.casa.samala.enums.BillStatusEnum;
 import com.casa.samala.repository.BillRepository;
 import com.casa.samala.service.BillService;
 import com.fasterxml.jackson.core.JsonProcessingException;

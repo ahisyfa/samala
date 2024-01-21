@@ -1,7 +1,10 @@
 package com.casa.samala.entity;
 
+import com.casa.samala.enums.NotificationTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode
 public class Notification extends DateAudit {
 
@@ -31,13 +36,13 @@ public class Notification extends DateAudit {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "notification_type_id")
-    private NotificationType notificationType;
+    @Column(name = "notification_type")
+    @Enumerated(EnumType.STRING)
+    private NotificationTypeEnum notificationType;
 
     @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
-    private Person personId;
+    private Person person;
 
     @Column(name = "content")
     private String content;
