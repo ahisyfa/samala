@@ -68,4 +68,6 @@ public class PersonInsertOrUpdateRequest {
     @NotEmpty
     private String phoneNumber;
 
+    private String profilePictureUrl;
+
 }
