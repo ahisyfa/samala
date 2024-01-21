@@ -5,7 +5,9 @@ import com.casa.samala.controller.response.ApiResponseStatusEnum;
 import com.casa.samala.controller.response.BillResponse;
 import com.casa.samala.controller.response.LoginResponse;
 import com.casa.samala.entity.User;
+import com.casa.samala.enums.NotificationTypeEnum;
 import com.casa.samala.mapper.PersonMapper;
+import com.casa.samala.service.NotificationService;
 import com.casa.samala.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,6 +41,9 @@ public class LoginController {
     @Autowired
     private PersonMapper personMapper;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @GetMapping("/ping")
     @Operation(summary = "Check Session")
     public String ping() {
@@ -53,6 +58,9 @@ public class LoginController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Optional<User> userByUsername = userService.findUserByUsername(authentication.getName());
+
+        // Add Login Notification
+        notificationService.addNotification(userByUsername.get().getPerson(), NotificationTypeEnum.LOGIN, null);
 
         LoginResponse loginResponse = LoginResponse
                 .builder()

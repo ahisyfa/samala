@@ -1,4 +1,4 @@
-package com.casa.samala.entity;
+package com.casa.samala.enums;
 
 /**
  * @author Ahmad Isyfalana Amin

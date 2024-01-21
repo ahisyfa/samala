@@ -1,9 +1,13 @@
 package com.casa.samala.controller;
 
+import com.casa.samala.controller.response.ApiResponse;
+import com.casa.samala.controller.response.ApiResponseStatusEnum;
 import com.casa.samala.entity.PaymentMethod;
 import com.casa.samala.repository.PaymentMethodRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +29,13 @@ public class PaymentMethodController {
     private PaymentMethodRepository paymentMethodRepository;
 
     @GetMapping("/get_all")
-    public List<PaymentMethod> getAll() {
-        return paymentMethodRepository.findAll();
+    @Operation(summary = "Get All Available Payment Method")
+    public ResponseEntity<ApiResponse<List<PaymentMethod>>> getAll() {
+        ApiResponse<List<PaymentMethod>> apiResponse = new ApiResponse<>();
+        apiResponse.setResponseStatusInfo(ApiResponseStatusEnum.SUCCESS);
+        apiResponse.setData(paymentMethodRepository.findAll());
+
+        return ResponseEntity.ok(apiResponse);
     }
 
 }
